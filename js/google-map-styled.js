@@ -1,8 +1,7 @@
 var venueMap;
-function init () { //LOADS THE MAP INTO THE HTML
+function init() { //LOADS THE MAP INTO THE HTML
 
-    var pinLocation = new 
-        google.maps.latlng(40.782710, -73.965310);
+    var pinLocation = new google.maps.LatLng(40.782710, -73.965310);
     
     var mapOptions = { //SET UP THE MAP OPTIONS 
         zoom: 15, //ZOOM INTENSITY
@@ -16,12 +15,12 @@ function init () { //LOADS THE MAP INTO THE HTML
         }, 
         mapTypeControl: true, 
         mapTypeControlOptions: {
-            style: google.maps.mapTypeControlStyle.DROPDOWN_MENU,
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
             position: google.maps.ControlPosition.TOP_LEFT
         }, 
         scaleControl: true,
         scaleControlOptions: {
-            position: google.maps.controlPosition.TOP_CENTER
+            position: google.maps.ControlPosition.TOP_CENTER
     }, 
         streetViewControl: false,
         overviewMapControl: false,
@@ -75,7 +74,7 @@ function init () { //LOADS THE MAP INTO THE HTML
     };
 
 
-    var venueMap = new google.maps.Map(document.getElementByID('map'), mapOptions); //retrieve the map from the html page
+    var venueMap = new google.maps.Map(document.getElementById('map'), mapOptions); //retrieve the map from the html page
 
 var startPosition = new google.maps.Marker({ //CREATE A NEW MARKER 
     position: pinLocation, // SET ITS LOCATION 
@@ -86,7 +85,7 @@ var startPosition = new google.maps.Marker({ //CREATE A NEW MARKER
 
 function loadScript() {
     var script = document.createElement('script') ; //CREATE SCRIPT ELEMENT
-    script.src = 'http://maps.googleapis.com/maps/api/js?sensor=false&callback=init'; // ADD SCRIPT ELEMENT SRC 
+    script.src = 'http://maps.googleapis.com/maps/api/js?key=AIzaSyAsZN2qMHxIYAKLQ94rMj0q6_0r7rqAyzM&callback=init'; // ADD SCRIPT ELEMENT SRC include api key HERE 
     document.body.appendChild(script); //ADD SCRIPT ELEMENT TO BODY 
 }
 
