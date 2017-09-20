@@ -1,101 +1,93 @@
 var venueMap;
-function init() {
+function init () { //LOADS THE MAP INTO THE HTML
 
-  var pinLocation = new google.maps.LatLng(40.782710,-73.965310);
+    var pinLocation = new 
+        google.maps.latlng(40.782710, -73.965310);
+    
+    var mapOptions = { //SET UP THE MAP OPTIONS 
+        zoom: 15, //ZOOM INTENSITY
+        center: pinLocation, //PLACE OF PIN
+        mapTypeId: google.maps.MapTypeId.ROADMAP, //MAP TYPE
+        panControl: false, //hide control
+        zoomControl: true,  //show control
+        zoomControlOption: {
+            style: google.maps.ZoomControlStyle.SMALL, //STYLE OF ZOOM CONTROL
+            position: google.maps.ControlPosition.TOP_RIGHT //ZOOM CONTROL POSITION 
+        }, 
+        mapTypeControl: true, 
+        mapTypeControlOptions: {
+            style: google.maps.mapTypeControlStyle.DROPDOWN_MENU,
+            position: google.maps.ControlPosition.TOP_LEFT
+        }, 
+        scaleControl: true,
+        scaleControlOptions: {
+            position: google.maps.controlPosition.TOP_CENTER
+    }, 
+        streetViewControl: false,
+        overviewMapControl: false,
+        //MAP STYLES WHAT THE MAP ELEMENTS SHOULD LOOK LIKE 
+        styles: [
+            {
+            stylers: [ //STYLERS PROPERTY HOLDS ARRAYS OF OBJECTS 
+                { hue: "#00ff6f" }, //OVERALL MAP COLOURS
+                { saturation: -50 }  //OVERALL MAP SATURATION
+            ]
+        }, {    
+            featureType: "road",    //ROAD FEATURES
+            elementType: "geometry", //THEIR GEOMETRY 'LINES'
+            stylers: [
+                { lightness: 100 },  //LIGHTNESS OF THE ROADS
+                { visibility: "simplified" } //LEVEL OF ROAD DETAIL
+            ]
+        }, {
+            featuredType: "transit", //PUBLIC TANSPORT FEATURES
+            elementType: "labels",  //THEIR GEOMETRY 'LINES'
+            stylers: [
+                { hue: "#ff0066" }, // COLOUR OF PUBLIC TRANSPORT
+                { satuation: +80 } //SATURATION OF PUBLIC TRANSPORT 
+            ]
+        }, {
+            featureType: "poi",  
+            elementType: "labels", 
+            stylers: [
+                { visibility: "off" }
+            ]
+        }, {
+            featureType: "poi.park",
+            elementType: "labels",
+            stylers: [
+                { visibility: "on" } 
+            ]
+        }, {
+            featureType: "water",
+            elementType: "geometry",
+            stylers: [
+                { hue: "#c4f4f4" } 
+            ]
+        }, {
+            featureType: "road",
+            elementType: "labels",
+            stylers: [
+                { visibility: "off" }
+            ]
+        }
+        ]
+    };
 
-  var mapOptions = {
-    zoom: 15,
-    center: pinLocation,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    panControl: false,
-    zoomControl: true,
-    zoomControlOptions: {
-      style: google.maps.ZoomControlStyle.SMALL,
-      position: google.maps.ControlPosition.TOP_RIGHT
-    },
 
-    mapTypeControl: true,
-    mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-      position: google.maps.ControlPosition.TOP_LEFT
-    },
+    var venueMap = new google.maps.Map(document.getElementByID('map'), mapOptions); //retrieve the map from the html page
 
-    scaleControl: true,
-    scaleControlOptions: {
-      position: google.maps.ControlPosition.TOP_CENTER
-    },
-    streetViewControl: false,
-    overviewMapControl: false,
-
-    styles: [
-      {
-        stylers: [
-          { hue: "#00ff6f" },
-          { saturation: -50 }
-        ]
-      }, {
-        featureType: "road",
-        elementType: "geometry",
-        stylers: [
-          { lightness: 100 },
-          { visibility: "simplified" }
-        ]
-      }, {
-        featureType: "transit",
-        elementType: "geometry",
-        stylers: [
-          { hue: "#ff6600" },
-          { saturation: +80 }
-        ]
-      }, {
-        featureType: "transit",
-        elementType: "labels",
-        stylers: [
-          { hue: "#ff0066" },
-          { saturation: +80 }
-        ]
-      }, {
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      }, {
-        featureType: "poi.park",
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" }
-        ]
-      }, {
-        featureType: "water",
-        elementType: "geometry",
-        stylers: [
-          { hue: "#c4f4f4" }
-        ]
-      }, {
-        featureType: "road",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      }
-    ]
-  };
-
-  var venueMap = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-  var startPosition = new google.maps.Marker({    // Create a new marker
-    position: pinLocation,                        // Set its position
-    map: venueMap,                                // Specify the map
-    icon: "img/go.png"                            // Path to image from HTML
-  });
-
+var startPosition = new google.maps.Marker({ //CREATE A NEW MARKER 
+    position: pinLocation, // SET ITS LOCATION 
+    map: venueMap, //SPECIFY THE MAP 
+    icon: "img/go.png" //PATH TO IMAGE FROM HTML
+});
 }
 
 function loadScript() {
-  var script = document.createElement('script');
-  script.src = 'http://maps.googleapis.com/maps/api/js?sensor=false&callback=init';
-  document.body.appendChild(script);
+    var script = document.createElement('script') ; //CREATE SCRIPT ELEMENT
+    script.src = 'http://maps.googleapis.com/maps/api/js?sensor=false&callback=init'; // ADD SCRIPT ELEMENT SRC 
+    document.body.appendChild(script); //ADD SCRIPT ELEMENT TO BODY 
 }
 
 window.onload = loadScript;

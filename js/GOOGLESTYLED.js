@@ -1,5 +1,5 @@
 var venueMap;
-function init () { //loads the map into the HTML page
+function init () { //LOADS THE MAP INTO THE HTML
 
     var pinLocation = new 
         google.maps.latlng(40.782710, -73.965310);
@@ -28,26 +28,26 @@ function init () { //loads the map into the HTML page
         //MAP STYLES WHAT THE MAP ELEMENTS SHOULD LOOK LIKE 
         styles: [
             {
+            stylers: [ //STYLERS PROPERTY HOLDS ARRAYS OF OBJECTS 
+                { hue: "#00ff6f" }, //OVERALL MAP COLOURS
+                { saturation: -50 }  //OVERALL MAP SATURATION
+            ]
+        }, {    
+            featureType: "road",    //ROAD FEATURES
+            elementType: "geometry", //THEIR GEOMETRY 'LINES'
             stylers: [
-                { hue: "#00ff6f" },
-                { saturation: -50 } 
+                { lightness: 100 },  //LIGHTNESS OF THE ROADS
+                { visibility: "simplified" } //LEVEL OF ROAD DETAIL
             ]
         }, {
-            featureType: "road",
-            elementType: "geometry",
+            featuredType: "transit", //PUBLIC TANSPORT FEATURES
+            elementType: "labels",  //THEIR GEOMETRY 'LINES'
             stylers: [
-                { lightness: 100 }, 
-                { visibility: "simplified" }
+                { hue: "#ff0066" }, // COLOUR OF PUBLIC TRANSPORT
+                { satuation: +80 } //SATURATION OF PUBLIC TRANSPORT 
             ]
         }, {
-            featuredType: "transit",
-            elementType: "labels", 
-            stylers: [
-                { hue: "#ff0066" },
-                { satuation: +80 }
-            ]
-        }, {
-            featureType: "poi", 
+            featureType: "poi",  
             elementType: "labels", 
             stylers: [
                 { visibility: "off" }
@@ -62,7 +62,7 @@ function init () { //loads the map into the HTML page
             featureType: "water",
             elementType: "geometry",
             stylers: [
-                { hue: "#c4f4f4" }
+                { hue: "#c4f4f4" } 
             ]
         }, {
             featureType: "road",
@@ -72,8 +72,22 @@ function init () { //loads the map into the HTML page
             ]
         }
         ]
-    }
-};
+    };
+
 
     var venueMap = new google.maps.Map(document.getElementByID('map'), mapOptions); //retrieve the map from the html page
 
+var startPosition = new google.maps.Marker({ //CREATE A NEW MARKER 
+    position: pinLocation, // SET ITS LOCATION 
+    map: venueMap, //SPECIFY THE MAP 
+    icon: "img/go.png" //PATH TO IMAGE FROM HTML
+});
+}
+
+function loadScript() {
+    var script = document.createElement('script') ; //CREATE SCRIPT ELEMENT
+    script.src = 'http://maps.googleapis.com/maps/api/js?sensor=false&callback=init'; // ADD SCRIPT ELEMENT SRC 
+    document.body.appendChild(script); //ADD SCRIPT ELEMENT TO BODY 
+}
+
+window.onload = loadScript;
